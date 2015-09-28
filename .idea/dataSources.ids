@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="dataSourceStorage">
+  <data-source name="MySQL - match_route@localhost" uuid="2c236b35-6121-4637-a929-97d786478f57">
+    <database-info product="MySQL" version="5.5.25" jdbc-version="4.0" driver-name="MySQL Connector Java" driver-version="mysql-connector-java-5.1.35 ( Revision: 5fb9c5849535c13917c2cf9baaece6ef9693ef27 )">
+      <extra-name-characters>#@</extra-name-characters>
+      <identifier-quote-string>`</identifier-quote-string>
+    </database-info>
+    <case-sensitivity plain-identifiers="lower" quoted-identifiers="lower"/>
+    <schema name="" catalog="match_route"/>
+    <table name="routes" schema="" catalog="match_route" type="TABLE">
+      <column name="route_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="user_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="start_time" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
+      <column name="end_time" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
+      <column name="is_driver" sqlType="BIT" precision="1" scale="0" nullable="false" jdbcType="-7" def="YicwJw=="/>
+      <primary-key name="PRIMARY" columns="route_id"/>
+      <exported-key name="SIR_FK_route_Id" table="steps_in_route" schema="" catalog="match_route" columns="route_Id"/>
+    </table>
+    <table name="steps" schema="" catalog="match_route" type="TABLE">
+      <column name="step_id" sqlType="VARCHAR" precision="160" scale="0" nullable="false" jdbcType="12"/>
+      <column name="start_lat" sqlType="FLOAT" precision="12" scale="0" nullable="false" jdbcType="7"/>
+      <column name="start_lng" sqlType="FLOAT" precision="12" scale="0" nullable="false" jdbcType="7"/>
+      <column name="end_lat" sqlType="FLOAT" precision="12" scale="0" nullable="false" jdbcType="7"/>
+      <column name="end_lng" sqlType="FLOAT" precision="12" scale="0" nullable="false" jdbcType="7"/>
+      <column name="duration_seconds" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="length_meters" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="start_address" sqlType="VARCHAR" precision="300" scale="0" nullable="true" jdbcType="12"/>
+      <column name="end_address" sqlType="VARCHAR" precision="300" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="step_id"/>
+      <exported-key name="SIR_FK_step_hash" table="steps_in_route" schema="" catalog="match_route" columns="step_hash"/>
+    </table>
+    <table name="steps_in_route" schema="" catalog="match_route" type="TABLE">
+      <column name="step_hash" sqlType="VARCHAR" precision="160" scale="0" nullable="false" jdbcType="12"/>
+      <column name="route_Id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="step_number" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <foreign-key name="SIR_FK_route_Id" columns="route_Id" ref-table="routes" ref-schema="" ref-catalog="match_route" ref-columns="route_id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="SIR_FK_step_hash" columns="step_hash" ref-table="steps" ref-schema="" ref-catalog="match_route" ref-columns="step_id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="SIR_FK_route_Id_idx" unique="false" columns="route_Id"/>
+      <index name="SIR_FK_step_hash_idx" unique="false" columns="step_hash"/>
+    </table>
+    <table name="users" schema="" catalog="match_route" type="TABLE">
+      <column name="user_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="login" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="password" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="fio" sqlType="VARCHAR" precision="100" scale="0" nullable="true" jdbcType="12"/>
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="user_id"/>
+      <index name="login_UNIQUE" unique="true" columns="login"/>
+    </table>
+  </data-source>
+</component>
