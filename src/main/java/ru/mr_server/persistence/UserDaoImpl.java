@@ -1,6 +1,9 @@
 package ru.mr_server.persistence;
 
 import org.springframework.stereotype.Service;
+import ru.mr_server.domain.Route;
+import ru.mr_server.domain.RouteStep;
+import ru.mr_server.domain.Step;
 import ru.mr_server.domain.User;
 
 import javax.persistence.EntityManager;
@@ -14,13 +17,13 @@ import java.util.List;
 @SuppressWarnings("unchecked")
 @Service
 @Transactional
-public class UserDaoImpl implements UserDao{
+public class UserDaoImpl implements UserDao {
     @PersistenceContext
     private EntityManager entityManager;
 
     @Override
     public List<User> listUsers() {
-        return entityManager.createNamedQuery("findAllUsers",User.class)
+        return entityManager.createNamedQuery("findAllUsers", User.class)
                 .getResultList();
     }
 
@@ -38,4 +41,14 @@ public class UserDaoImpl implements UserDao{
             return null;
         return resultList.get(0);
     }
+
+    public void temp(Route route) {
+        for (RouteStep routeStep : route.getSteps()) {
+            Step persisted = entityManager.find(Step.class, routeStep.getStep().getId());
+            if (persisted != null)
+                routeStep.setStep(persisted);
+        }
+        entityManager.persist(route);
+    }
+
 }

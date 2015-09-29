@@ -12,7 +12,7 @@
       <column name="user_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
       <column name="start_time" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
       <column name="end_time" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
-      <column name="is_driver" sqlType="BIT" precision="1" scale="0" nullable="false" jdbcType="-7" def="YicwJw=="/>
+      <column name="user_type" sqlType="VARCHAR" precision="15" scale="0" nullable="false" jdbcType="12" def="J2FueSc="/>
       <primary-key name="PRIMARY" columns="route_id"/>
       <exported-key name="SIR_FK_route_Id" table="steps_in_route" schema="" catalog="match_route" columns="route_Id"/>
     </table>
